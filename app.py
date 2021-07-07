@@ -46,7 +46,8 @@ def show_playlist(playlist_id):
     """Show detail on specific playlist."""
 
     # ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
-
+    playlist = Playlist.query.get_or_404(playlist_id)
+    return render_template('playlist.html', playlist=playlist)
 
 @app.route("/playlists/add", methods=["GET", "POST"])
 def add_playlist():
@@ -57,7 +58,8 @@ def add_playlist():
     """
 
     # ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
-
+    form = PlaylistForm()
+    return render_template('new_playlist.html', form=form)
 
 ##############################################################################
 # Song routes
