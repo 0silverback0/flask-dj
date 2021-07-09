@@ -15,6 +15,8 @@ class Playlist(db.Model):
     name = db.Column(db.String, nullable=False)
     description = db.Column(db.String, nullable=False)
 
+    songs = db.relationship('Song', secondary='playlist_song', backref='playlist')
+
 class Song(db.Model):
     """Song."""
 
@@ -25,7 +27,7 @@ class Song(db.Model):
     title = db.Column(db.String, nullable=False)
     artist = db.Column(db.String, nullable=False)
 
-    playlist_song = db.relationship('PlaylistSong', backref='song')
+    #playlist_song = db.relationship('PlaylistSong', secondary='playlist_song', backref='song')
 
 class PlaylistSong(db.Model):
     """Mapping of a playlist to a song."""
@@ -37,7 +39,7 @@ class PlaylistSong(db.Model):
     playlist_id = db.Column(db.Integer, db.ForeignKey('playlist.id'), nullable=False)
     song_id = db.Column(db.Integer, db.ForeignKey('song.id'), nullable=False)
 
-    playlist = db.relationship('Playlist', backref='playlist_songs')
+    #playlist = db.relationship('Playlist', backref='playlist_songs')
 
 # DO NOT MODIFY THIS FUNCTION
 def connect_db(app):
